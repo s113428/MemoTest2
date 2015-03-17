@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -38,12 +39,12 @@ public class MainActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         //ActionBar部
         //元文//getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem actionItem = menu.add("New Memo");
+        MenuItem actionItem = menu.add(Menu.NONE,1,1,"New Memo");
         actionItem.setIcon(android.R.drawable.ic_menu_add);
         actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        //ActionBar部　ここまで
 
         return true;
+        //ActionBar部　ここまで
     }
 
     @Override
@@ -55,9 +56,10 @@ public class MainActivity extends ActionBarActivity {
 
         //ActionBar部
         //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+        if (id == 1) {
+            Toast.makeText(this,"リストを追加",Toast.LENGTH_LONG).show();
+            return true;
+        }
         //ActionBar部　ここまで
 
         return super.onOptionsItemSelected(item);
