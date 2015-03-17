@@ -80,7 +80,7 @@ public class MainActivity extends ActionBarActivity {
         ad.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                Toast.makeText(MainActivity.this,editText.getText().toString(),Toast.LENGTH_LONG).show();
             }
         });
         ad.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
