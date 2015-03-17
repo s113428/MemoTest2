@@ -1,9 +1,12 @@
 package com.test.memotest2;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -21,16 +24,16 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //List部追記
-        String[] memoLists = new String[]{
-                "memo1","memo2","memo3"
-        };
-        ArrayAdapter adapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, memoLists);
-
-        ListView listView = (ListView)findViewById(R.id.ListView01);
-        listView.setAdapter(adapter);
-        //Listここまで
+//        //List部追記
+//        String[] memoLists = new String[]{
+//                "memo1","memo2","memo3"
+//        };
+//        ArrayAdapter adapter = new ArrayAdapter(this,
+//                android.R.layout.simple_list_item_1, memoLists);
+//
+//        ListView listView = (ListView)findViewById(R.id.ListView01);
+//        listView.setAdapter(adapter);
+//        //Listここまで
     }
 
 
@@ -57,11 +60,37 @@ public class MainActivity extends ActionBarActivity {
         //ActionBar部
         //noinspection SimplifiableIfStatement
         if (id == 1) {
-            Toast.makeText(this,"リストを追加",Toast.LENGTH_LONG).show();
+            //Toast.makeText(this,"リストを追加",Toast.LENGTH_LONG).show();
+            showDialog();
             return true;
         }
         //ActionBar部　ここまで
 
         return super.onOptionsItemSelected(item);
     }
+
+    //Dialog部
+    EditText editText;
+    private void showDialog() {
+        editText = new EditText(this);
+        AlertDialog.Builder ad = new AlertDialog.Builder(this);
+        ad.setTitle("メモ追加");
+        ad.setView(editText);
+        ad.setIcon(android.R.drawable.ic_menu_edit);
+        ad.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        ad.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        ad.show();
+    }
+    //Dialog ここまで
+
 }
