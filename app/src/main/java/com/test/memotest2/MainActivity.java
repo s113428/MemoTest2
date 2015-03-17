@@ -9,31 +9,39 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    //クラス内変数を定義
+    private LinkedList<String> memoList;
+    //クラス内変数　ここまで
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        //List部追記
-//        String[] memoLists = new String[]{
-//                "memo1","memo2","memo3"
-//        };
-//        ArrayAdapter adapter = new ArrayAdapter(this,
-//                android.R.layout.simple_list_item_1, memoLists);
-//
-//        ListView listView = (ListView)findViewById(R.id.ListView01);
-//        listView.setAdapter(adapter);
-//        //Listここまで
+        //List部追記
+        memoList = new LinkedList<String>();
+        memoList.add("memo1");
+
+        ArrayAdapter adapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, memoList);
+
+        ListView listView = (ListView)findViewById(R.id.ListView01);
+        listView.setAdapter(adapter);
+        //Listここまで
     }
 
 
@@ -69,6 +77,13 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+//    private void setListView(ArrayList<HashMap<String, Object>> memoLists){
+//        MemoListAdapter memoListAdapter = new MemoListAdapeter(getApplicationContext());
+//        memoListAdapter .setMemoLists(memoLists);
+//        listView.setAdapter(memoListAdapter);
+//        listView.setOnItemClickListener(new ClickEventOnMemoActivity());
+//    }
+
     //Dialog部
     EditText editText;
     private void showDialog() {
@@ -80,7 +95,8 @@ public class MainActivity extends ActionBarActivity {
         ad.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(MainActivity.this,editText.getText().toString(),Toast.LENGTH_LONG).show();
+                memoList.add(MainActivity.this.editText.getText().toString());
+                //Toast.makeText(MainActivity.this,editText.getText().toString(),Toast.LENGTH_LONG).show();
             }
         });
         ad.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
