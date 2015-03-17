@@ -4,6 +4,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -12,6 +16,17 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //List部追記
+        String[] memoLists = new String[]{
+                "memo1","memo2","memo3"
+        };
+        ArrayAdapter adapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, memoLists);
+
+        ListView listView = (ListView)findViewById(R.id.ListView01);
+        listView.setAdapter(adapter);
+        //Listここまで
     }
 
 
