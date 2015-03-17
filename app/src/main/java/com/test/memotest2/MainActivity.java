@@ -1,10 +1,13 @@
 package com.test.memotest2;
 
+import android.app.ActionBar;
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.List;
@@ -33,7 +36,13 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //ActionBar部
+        //元文//getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem actionItem = menu.add("New Memo");
+        actionItem.setIcon(android.R.drawable.ic_menu_add);
+        actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        //ActionBar部　ここまで
+
         return true;
     }
 
@@ -44,10 +53,12 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        //ActionBar部
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+        //ActionBar部　ここまで
 
         return super.onOptionsItemSelected(item);
     }
