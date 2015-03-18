@@ -23,7 +23,8 @@
         android:soundEffectsEnabled="false"
         android:singleLine="false"
         android:selectAllOnFocus="false"
-        android:cursorVisible="false"
+        android:cursorVisible="true"
         android:clickable="false"
-        android:gravity="top|left" />
+        android:gravity="top|left"
+        android:padding="10dp" />
 </RelativeLayout>
