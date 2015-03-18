@@ -34,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
 
         //List部追記
         memoList = new LinkedList<String>();
-        memoList.add("memo1");
+        //memoList.add("memo1");
 
         ArrayAdapter adapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, memoList);
