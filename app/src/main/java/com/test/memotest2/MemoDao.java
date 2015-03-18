@@ -77,26 +77,27 @@ public class MemoDao extends DatabaseHelper{
 
 
     //データ読み込み
-    public ArrayList<HashMap<String, Object>> searchAll(){
-        ArrayList<HashMap<String, Object>> memoLists = new ArrayList<HashMap<String, Object>>();
-
+//    public ArrayList<HashMap<String, Object>> searchAll(){
+//        ArrayList<HashMap<String, Object>> memoLists = new ArrayList<HashMap<String, Object>>();
+    public String searchAll(){
         Cursor cursor = null;
+        String content = null;
         try{
             cursor = mDB.rawQuery("select * from memo;", null);
 
             //while(cursor.moveToNext()) {
-                int count = cursor.getColumnCount();
+                int count = cursor.getCount();
                 Log.d("memo", ""+count);
-                cursor.moveToFirst();
-                int id = cursor.getInt(0);
-                String content = cursor.getString(1);
+                cursor.move(19);
+                //int id = cursor.getInt(0);
+                content = cursor.getString(1);
                 //String created = cursor.getString(cursor.getColumnIndex("created"));
                 Log.d("memo", "内容:" + content);
-                HashMap<String, Object> memoList = new HashMap<String, Object>();
-                memoList.put("id", id);
-                memoList.put("content", content);
+//                HashMap<String, Object> memoList = new HashMap<String, Object>();
+//                memoList.put("id", id);
+//                memoList.put("content", content);
                 //memoList.put("created", created);
-                memoLists.add(memoList);
+                //memoLists.add(memoList);
             //}
         }
         finally{
@@ -104,7 +105,7 @@ public class MemoDao extends DatabaseHelper{
                 cursor.close();
             }
         }
-        return memoLists;
+        return content;
     }
 
     // メモIDで検索

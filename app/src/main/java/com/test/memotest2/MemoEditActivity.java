@@ -16,8 +16,6 @@ import java.util.LinkedList;
 
 public class MemoEditActivity extends ActionBarActivity {
 
-    private LinkedList<String> memoList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +26,9 @@ public class MemoEditActivity extends ActionBarActivity {
         dbSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<HashMap<String, Object>> memoLists;
+                //ArrayList<HashMap<String, Object>> memoLists;
                 MemoDao dao = new MemoDao(getApplicationContext());
                 dao.connection();
-
                 // メモ内容を追加
                 EditText editText = (EditText)findViewById(R.id.editText);
                 String memo = editText.getText().toString();
@@ -47,12 +44,12 @@ public class MemoEditActivity extends ActionBarActivity {
         dbOpenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<HashMap<String, Object>> memoLists;
+                //ArrayList<HashMap<String, Object>> memoLists;
                 MemoDao dao = new MemoDao(getApplicationContext());
                 dao.connection();
-
-                dao.searchAll();
-
+                EditText editText = (EditText)findViewById(R.id.editText);
+                String memo = dao.searchAll().toString();
+                editText.setText(memo);
                 dao.close();
             }
         });
