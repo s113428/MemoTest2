@@ -12,10 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -46,16 +48,28 @@ public class MainActivity extends ActionBarActivity {
         listView.setAdapter(adapter);
         //Listここまで
 
-        //MemoEdit部
-        Button memoEditButton = (Button)findViewById(R.id.editButton);
-        memoEditButton.setOnClickListener(new View.OnClickListener() {
+        //List クリック時の処理
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                //Log.d("LIST" ,String.valueOf(id));
                 Intent emIntent = new Intent(MainActivity.this,MemoEditActivity.class);
                 startActivity(emIntent);
             }
         });
-        //MemoEdit　ここまで
+        //List クリック時の処理　ここまで
+
+//        //MemoEdit部
+//        Button memoEditButton = (Button)findViewById(R.id.editButton);
+//        memoEditButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent emIntent = new Intent(MainActivity.this,MemoEditActivity.class);
+//                startActivity(emIntent);
+//            }
+//        });
+//        //MemoEdit　ここまで
 
     }
 

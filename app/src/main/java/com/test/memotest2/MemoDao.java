@@ -34,16 +34,16 @@ public class MemoDao extends DatabaseHelper{
         mDB = null;
     }
 
-//    //データを投入
-//    public long addMemo(String content){
+    //データを投入
+    public long addMemo(String content){
 //        String dateNow = String.valueOf(DateFormat.format(
 //                "yyyy-MM-dd kk:mm:ss", Calendar.getInstance()));
-//        ContentValues val = new ContentValues();
-//        val.put("content", content);
+        ContentValues val = new ContentValues();
+        val.put("content", content);
 //        val.put("created", dateNow);
-//
-//        return mDB.insert("memo", null, val);
-//    }
+
+        return mDB.insert("memo", null, val);
+    }
 
     //データ読み込み
     public ArrayList<HashMap<String, Object>> searchAllByWord(String word){
@@ -59,12 +59,12 @@ public class MemoDao extends DatabaseHelper{
             while(cursor.moveToNext()){
                 int id = cursor.getInt(cursor.getColumnIndex("_id"));
                 String content = cursor.getString(cursor.getColumnIndex("content"));
-                String created = cursor.getString(cursor.getColumnIndex(("created")));
+                //String created = cursor.getString(cursor.getColumnIndex(("created")));
 
                 HashMap<String, Object> memoList = new HashMap<String, Object>();
                 memoList.put("id", id);
                 memoList.put("content", content);
-                memoList.put("created", created);
+                //memoList.put("created", created);
                 memoLists.add(memoList);
             }
         }
@@ -76,32 +76,37 @@ public class MemoDao extends DatabaseHelper{
         return memoLists;
     }
 
-    //データ読み込み
-    public ArrayList<HashMap<String, Object>> searchAll(){
-        ArrayList<HashMap<String, Object>> memoLists = new ArrayList<HashMap<String, Object>>();
 
-        Cursor cursor = null;
-        try{
-            cursor = mDB.rawQuery("select * from memo order by created desc;", null);
-            while(cursor.moveToNext()) {
-                int id = cursor.getInt(cursor.getColumnIndex("_id"));
-                String content = cursor.getString(cursor.getColumnIndex("content"));
-                String created = cursor.getString(cursor.getColumnIndex("created"));
-                Log.d("memo", "内容:" + content + "  作成日:" + created);
-                HashMap<String, Object> memoList = new HashMap<String, Object>();
-                memoList.put("id", id);
-                memoList.put("content", content);
-                memoList.put("created", created);
-                memoLists.add(memoList);
-            }
-        }
-        finally{
-            if( cursor != null ){
-                cursor.close();
-            }
-        }
-        return memoLists;
-    }
+
+
+    //データ読み込み
+//    public ArrayList<HashMap<String, Object>> searchAll(){
+//        ArrayList<HashMap<String, Object>> memoLists = new ArrayList<HashMap<String, Object>>();
+//
+//        Cursor cursor = null;
+//        try{
+//            cursor = mDB.rawQuery("select * from memo;", null);
+//            Log.d("memo","内容："+cursor);
+//            cursor = mDB.rawQuery("select * from memo order by created desc;", null);
+//            while(cursor.moveToNext()) {
+//                int id = cursor.getInt(cursor.getColumnIndex("_id"));
+//                String content = cursor.getString(cursor.getColumnIndex("content"));
+//                //String created = cursor.getString(cursor.getColumnIndex("created"));
+//                Log.d("memo", "内容:" + content);
+//                HashMap<String, Object> memoList = new HashMap<String, Object>();
+//                memoList.put("id", id);
+//                memoList.put("content", content);
+//                //memoList.put("created", created);
+//                memoLists.add(memoList);
+//            }
+//        }
+//        finally{
+//            if( cursor != null ){
+//                cursor.close();
+//            }
+//        }
+//        return memoLists;
+//    }
 
     // メモIDで検索
     public HashMap<String, String> searchById( String memoId ){
@@ -115,11 +120,11 @@ public class MemoDao extends DatabaseHelper{
             while(cursor.moveToNext()) {
                 String id = cursor.getString(cursor.getColumnIndex("_id"));
                 String content = cursor.getString(cursor.getColumnIndex("content"));
-                String created = cursor.getString(cursor.getColumnIndex("created"));
+                //String created = cursor.getString(cursor.getColumnIndex("created"));
                 map.put("id", id);
                 map.put("content", content);
-                map.put("created", created);
-                Log.d("memo", "内容:"+content + "  作成日:" + created);
+                //map.put("created", created);
+                Log.d("memo", "内容:"+content);
             }
         }
         finally{
@@ -130,7 +135,7 @@ public class MemoDao extends DatabaseHelper{
         return map;
     }
 
-    /** メモを更新 */
+    // メモを更新
     public int updateContentById( String memoId, String content ){
         String[] selectArgs = new String[]{ memoId };
         ContentValues val = new ContentValues();
@@ -142,7 +147,7 @@ public class MemoDao extends DatabaseHelper{
                 selectArgs);
     }
 
-    /** メモの内容を条件に削除 */
+    // メモの内容を条件に削除
     public int delById( String id ){
         String[] selectArgs = new String[]{ id };
         return mDB.delete( "memo",
@@ -150,7 +155,7 @@ public class MemoDao extends DatabaseHelper{
                 selectArgs);
     }
 
-    /** 全削除 */
+    //全削除
     public int delAll(){
         return mDB.delete( "memo", null, null );
     }

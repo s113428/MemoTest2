@@ -26,21 +26,19 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(
                 "create table memo ("
                     + "_id integer primary key autoincrement not null,"
-                    + "content text not null,"
-                    + "created text not null"
+                    + "content text not null"
                     + ");"
         );
     }
 
-    //データベースのバージョンアップ次の処理（createdを新しく定義）
+    //データベースのバージョンアップ次の処理
     @Override
     public  void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         if(oldVersion == 1 && newVersion == 2){
             db.execSQL(
                     "create table memo ("
                     + "_id integer primary key autoincrement not null,"
-                    + "content text not null,"
-                    + "created text not null"
+                    + "content text not null"
                     + ");"
             );
         }
