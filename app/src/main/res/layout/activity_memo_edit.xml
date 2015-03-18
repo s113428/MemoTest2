@@ -4,6 +4,26 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.test.memotest2.MemoEditActivity">
+    tools:context="com.test.memotest2.MemoEditActivity"
+    android:id="@+id/e">
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/material_deep_teal_200"
+        android:autoText="false"
+        android:textAllCaps="false"
+        android:soundEffectsEnabled="false"
+        android:singleLine="false"
+        android:selectAllOnFocus="false"
+        android:cursorVisible="false"
+        android:clickable="false"
+        android:gravity="top|left" />
 </RelativeLayout>
