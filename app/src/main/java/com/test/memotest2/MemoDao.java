@@ -1,7 +1,17 @@
 package com.test.memotest2;
 
-/**
- * Created by fuji on 2015/03/18.
- */
-public class MemoDao {
-}
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
+//DB部
+//public class MemoDao extends DatabaseHelper{
+//    protected Context mContext = null;
+//    protected SQLiteDatabase mDB = null;
+//
+//    public MemoDao(Context context){
+//        super(context);
+//        mContext = context;
+//    }
+//}
+//DB部　ここまで
