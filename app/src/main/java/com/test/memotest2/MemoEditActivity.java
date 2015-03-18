@@ -11,9 +11,12 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 
 public class MemoEditActivity extends ActionBarActivity {
+
+    private LinkedList<String> memoList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

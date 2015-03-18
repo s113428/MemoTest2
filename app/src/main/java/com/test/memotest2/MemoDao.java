@@ -41,7 +41,6 @@ public class MemoDao extends DatabaseHelper{
         ContentValues val = new ContentValues();
         val.put("content", content);
 //        val.put("created", dateNow);
-
         return mDB.insert("memo", null, val);
     }
 
@@ -77,36 +76,36 @@ public class MemoDao extends DatabaseHelper{
     }
 
 
-
-
     //データ読み込み
-//    public ArrayList<HashMap<String, Object>> searchAll(){
-//        ArrayList<HashMap<String, Object>> memoLists = new ArrayList<HashMap<String, Object>>();
-//
-//        Cursor cursor = null;
-//        try{
-//            cursor = mDB.rawQuery("select * from memo;", null);
-//            Log.d("memo","内容："+cursor);
-//            cursor = mDB.rawQuery("select * from memo order by created desc;", null);
-//            while(cursor.moveToNext()) {
-//                int id = cursor.getInt(cursor.getColumnIndex("_id"));
-//                String content = cursor.getString(cursor.getColumnIndex("content"));
-//                //String created = cursor.getString(cursor.getColumnIndex("created"));
-//                Log.d("memo", "内容:" + content);
-//                HashMap<String, Object> memoList = new HashMap<String, Object>();
-//                memoList.put("id", id);
-//                memoList.put("content", content);
-//                //memoList.put("created", created);
-//                memoLists.add(memoList);
-//            }
-//        }
-//        finally{
-//            if( cursor != null ){
-//                cursor.close();
-//            }
-//        }
-//        return memoLists;
-//    }
+    public ArrayList<HashMap<String, Object>> searchAll(){
+        ArrayList<HashMap<String, Object>> memoLists = new ArrayList<HashMap<String, Object>>();
+
+        Cursor cursor = null;
+        try{
+            cursor = mDB.rawQuery("select * from memo;", null);
+
+            //while(cursor.moveToNext()) {
+                int count = cursor.getColumnCount();
+                Log.d("memo", ""+count);
+                cursor.moveToFirst();
+                int id = cursor.getInt(0);
+                String content = cursor.getString(1);
+                //String created = cursor.getString(cursor.getColumnIndex("created"));
+                Log.d("memo", "内容:" + content);
+                HashMap<String, Object> memoList = new HashMap<String, Object>();
+                memoList.put("id", id);
+                memoList.put("content", content);
+                //memoList.put("created", created);
+                memoLists.add(memoList);
+            //}
+        }
+        finally{
+            if( cursor != null ){
+                cursor.close();
+            }
+        }
+        return memoLists;
+    }
 
     // メモIDで検索
     public HashMap<String, String> searchById( String memoId ){

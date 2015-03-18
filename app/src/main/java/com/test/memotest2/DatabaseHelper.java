@@ -6,6 +6,7 @@ package com.test.memotest2;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
     //データベース名
@@ -22,6 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     //テーブルの作成
     @Override
     public  void onCreate(SQLiteDatabase db){
+        Log.d("test", "in?");
         //テーブル作成
         db.execSQL(
                 "create table memo ("
