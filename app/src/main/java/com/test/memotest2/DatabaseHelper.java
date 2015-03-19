@@ -28,6 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(
                 "create table memo ("
                     + "_id integer primary key autoincrement not null,"
+                    + "title text not null,"
                     + "content text not null"
                     + ");"
         );
@@ -40,6 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             db.execSQL(
                     "create table memo ("
                     + "_id integer primary key autoincrement not null,"
+                    + "title text not null,"
                     + "content text not null"
                     + ");"
             );

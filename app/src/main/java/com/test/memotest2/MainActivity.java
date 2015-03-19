@@ -28,8 +28,11 @@ import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
 
+    private long memoID;
+
     //クラス内変数を定義
     private LinkedList<String> memoList;
+    private MemoDao dao;
     //クラス内変数　ここまで
 
     @Override
@@ -37,8 +40,13 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //
+        dao = new MemoDao(getApplicationContext());
+        dao.connection();
+
         //List部追記
-        memoList = new LinkedList<String>();
+        memoList = dao.getTitlesFromDatabase();
+
         //memoList.add("memo1");
 
         ArrayAdapter adapter = new ArrayAdapter(this,
@@ -49,13 +57,15 @@ public class MainActivity extends ActionBarActivity {
         //Listここまで
 
         //List クリック時の処理
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Log.d("LIST" ,String.valueOf(id));
-                Intent emIntent = new Intent(MainActivity.this,MemoEditActivity.class);
-                startActivity(emIntent);
+
+                Intent intent = new Intent(MainActivity.this, MemoEditActivity.class);
+                intent.putExtra("memoID", id);
+                startActivity(intent);
             }
         });
         //List クリック時の処理　ここまで
@@ -124,7 +134,14 @@ public class MainActivity extends ActionBarActivity {
         ad.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                memoList.add(MainActivity.this.editText.getText().toString());
+                MemoDao dao = new MemoDao(getApplicationContext());
+                dao.connection();
+                // タイトルをDBに追加
+                String title = editText.getText().toString();
+                dao.addMemo(title,"");
+
+                memoList.add(title);
+                dao.close();
                 //Toast.makeText(MainActivity.this,editText.getText().toString(),Toast.LENGTH_LONG).show();
             }
         });

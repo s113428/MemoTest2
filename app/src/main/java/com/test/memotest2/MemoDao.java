@@ -3,6 +3,7 @@ package com.test.memotest2;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -11,9 +12,11 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 //DB部
 public class MemoDao extends DatabaseHelper{
+
     protected Context mContext = null;
     protected SQLiteDatabase mDB = null;
 
@@ -35,11 +38,13 @@ public class MemoDao extends DatabaseHelper{
     }
 
     //データを投入
-    public long addMemo(String content){
+    public long addMemo(String title, String content){
 //        String dateNow = String.valueOf(DateFormat.format(
 //                "yyyy-MM-dd kk:mm:ss", Calendar.getInstance()));
         ContentValues val = new ContentValues();
+        val.put("title", title);
         val.put("content", content);
+        Log.d("memo", "タイトル：" + title);
 //        val.put("created", dateNow);
         return mDB.insert("memo", null, val);
     }
@@ -75,24 +80,43 @@ public class MemoDao extends DatabaseHelper{
         return memoLists;
     }
 
+    public LinkedList<String> getTitlesFromDatabase(){
+        Cursor cursor = null;
+        LinkedList<String> anw = new LinkedList<String>();
+
+        cursor = mDB.rawQuery("select * from memo;", null);
+
+        boolean mov = cursor.moveToFirst();
+        while (mov) {
+            String tmp = cursor.getString(1);
+            anw.add(tmp);
+            mov = cursor.moveToNext();
+        }
+        cursor.close();
+
+        return anw;
+    }
 
     //データ読み込み
 //    public ArrayList<HashMap<String, Object>> searchAll(){
 //        ArrayList<HashMap<String, Object>> memoLists = new ArrayList<HashMap<String, Object>>();
-    public String searchAll(){
+    public String searchAll(long id){
         Cursor cursor = null;
         String content = null;
+        String title = null;
         try{
             cursor = mDB.rawQuery("select * from memo;", null);
 
             //while(cursor.moveToNext()) {
                 int count = cursor.getCount();
                 Log.d("memo", ""+count);
-                cursor.move(19);
+                cursor.move((int)id+1);
                 //int id = cursor.getInt(0);
-                content = cursor.getString(1);
+                title = cursor.getString(1);
+                content = cursor.getString(2);
                 //String created = cursor.getString(cursor.getColumnIndex("created"));
-                Log.d("memo", "内容:" + content);
+                Log.d("memo", "内容: " + content);
+                Log.d("memo", "タイトル: " + title);
 //                HashMap<String, Object> memoList = new HashMap<String, Object>();
 //                memoList.put("id", id);
 //                memoList.put("content", content);
@@ -140,6 +164,9 @@ public class MemoDao extends DatabaseHelper{
         String[] selectArgs = new String[]{ memoId };
         ContentValues val = new ContentValues();
         val.put("content", content);
+
+        Log.d("update", "ID："+memoId);
+        Log.d("update", "内容："+content);
 
         return mDB.update( "memo",
                 val,

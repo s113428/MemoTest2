@@ -3,6 +3,7 @@ package com.test.memotest2;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,10 +17,15 @@ import java.util.LinkedList;
 
 public class MemoEditActivity extends ActionBarActivity {
 
+    private long memoID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_edit);
+
+        Intent intent = getIntent();
+        memoID = intent.getLongExtra("memoID",0);
+        Log.d("memo_id", ""+memoID);
 
         //DB保存部
         Button dbSaveButton = (Button)findViewById(R.id.saveButton);
@@ -32,7 +38,7 @@ public class MemoEditActivity extends ActionBarActivity {
                 // メモ内容を追加
                 EditText editText = (EditText)findViewById(R.id.editText);
                 String memo = editText.getText().toString();
-                dao.addMemo(memo);
+                dao.updateContentById(String.valueOf(memoID+1),memo);
 
                 dao.close();
             }
@@ -48,7 +54,7 @@ public class MemoEditActivity extends ActionBarActivity {
                 MemoDao dao = new MemoDao(getApplicationContext());
                 dao.connection();
                 EditText editText = (EditText)findViewById(R.id.editText);
-                String memo = dao.searchAll().toString();
+                String memo = dao.searchAll(memoID).toString();
                 editText.setText(memo);
                 dao.close();
             }
